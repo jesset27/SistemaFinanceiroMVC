@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #bbd5f9;
+}
+
+.content {
+    margin: 5%;
+    background-color: #ffffff;
+    padding: 4rem 4rem 3rem 4rem;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
+    border-radius: 20px;
+}
+
+.signin-text {
+    font-style: normal;
+    font-weight: 600 !important;
+    color: #030c4c;
+    margin-top: 10px;
+}
+
+label {
+    color: #030c4c;
+}
+
+form {
+    margin-top: 40px;
+}
+
+.form-control {
+    display: block;
+    width: 80%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1, 5;
+    border-color: #030c4c;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    padding: 8px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: none;
+
+}
+
+.btn-class {
+    background-color: #030c4c;
+    color: #ebeff0;
+    border-radius: 10px;
+    width: 30%;
+    border-width: 1px 1px 1px 1px #030c4c;
+}
+
+.btn-class:hover {
+    background-color: #5f95e7;
+    color: #030c4c;
+}
+
+ .btn-primary {
+    background-color: #030c4c;
+    color: #ebeff0;
+    border-radius: 10px;
+    width: 30%;
+    border-width: 1px 1px 1px 1px #030c4c;
+    margin:  0 15px 0 0px;
+}
+
+.btn:hover{
+    background-color: #5f95e7;
+    color: #030c4c;
+}
+
+.img-fluid{
+    padding-top: 80px;
+}
+
+.btn-secondary{
+    background-color: #014ba0;
+    color: #ebeff0;
+    border-radius: 10px;
+    width: 30%;
+    border-width: 1px 1px 1px 1px #014ba0;
+    margin:  0 15px 0 0px;
+}
+
+.img{
+    padding-top:5px ;
+    border-radius: 50px;
+}
+
+nav {
+    background: #030c4c;
+    height: 80px;
+    width: 100%;
+    font-weight: 500;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+label.logo {
+    line-height: 80px;
+    padding: 0 20px;
+}
+
+nav ul {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    align-items: center;
+}
+
+
+nav ul li a {
+    color: white;
+    font-size: 24px;
+    padding: 7px 13px;
+    border-radius: 3px;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+}
+
+a.active,
+a:hover {
+    background:#5f95e7;
+    color:#030c4c;
+    transition: .5s;
+}
+
+.checkbtn {
+    font-size: 40px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
