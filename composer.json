@@ -1,5 +1,5 @@
 {
-    "name": "app/app",
+    "name": "app/sistemafinanceiromvc",
     "description": "Sistema Financeiro",
     "autoload": {
         "psr-4": {

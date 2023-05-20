@@ -15,10 +15,11 @@ class App
 
     public function __construct()
     {
+        
         /*
          * Constantes do sistema
          */
-        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/htdocs/mvc-SistemaFinanceiro");
+        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/ILP508/2BProjetoPHP/SistemaFinanceiroMVC");
         define('PATH'           , realpath('./'));
         define('TITLE'          , "Sistema Financeiro");
         define('DB_HOST'        , "localhost");
@@ -87,11 +88,10 @@ class App
         } else {
             throw new Exception("Nosso suporte já esta verificando desculpe!", 500);
         }
-        throw new Exception("Página não encontrada.", 404);
     }
 
     public function url () {
-
+        
         if ( isset( $_GET['url'] ) ) {
 
             $path = $_GET['url'];

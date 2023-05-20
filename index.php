@@ -2,7 +2,6 @@
 
 use App\App;
 use App\Lib\Erro;
-require_once "./App/App.php";
 
 session_start();
 
