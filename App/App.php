@@ -19,7 +19,7 @@ class App
         /*
          * Constantes do sistema
          */
-        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/ILP508/2BProjetoPHP/SistemaFinanceiroMVC");
+        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/SistemaFinanceiroMVC");
         define('PATH'           , realpath('./'));
         define('TITLE'          , "Sistema Financeiro");
         define('DB_HOST'        , "localhost");
