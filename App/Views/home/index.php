@@ -1,3 +1,4 @@
+<?php require "./App/Views/layouts/header.php"; ?>
 <nav>
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
@@ -19,3 +20,4 @@
         </div>
     </div>
 </main>
+
