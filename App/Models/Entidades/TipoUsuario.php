@@ -1,17 +1,25 @@
 <?php 
 class TipoUsuario {
-    private string $tus_nome;
-    public function __construct($tus_nome){
-        $this->tus_nome = $tus_nome;
+    private int $tipo_id;
+    private string $tipo_nome;
+
+    public function __construct($tipo_nome) {
+        $this->tipo_nome = $tipo_nome;
     }
-    public function __get($value){
-        return $this->value;
+
+    public function getTipoId(): int {
+        return $this->tipo_id;
     }
-    public function __set($atr, $value){
-        if (property_exists($this, $atr)) {
-            $this->$atr = $value;
-        } else {
-            throw new Exception("A propriedade $atr não existe.");
-        }
+
+    public function setTipoId(int $tipo_id): void {
+        $this->tipo_id = $tipo_id;
+    }
+
+    public function getTipoNome(): string {
+        return $this->tipo_nome;
+    }
+
+    public function setTipoNome(string $tipo_nome): void {
+        $this->tipo_nome = $tipo_nome;
     }
 }
