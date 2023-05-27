@@ -1,17 +1,25 @@
-<?php 
-class TipoTransacao {
-    private string $tipoNome;
-    public function __construct($tipoNome){
-        $this->tipoNome = $tipoNome;
+<?php
+class TipoUsuario {
+    private $tipo_id;
+    private $tipo_nome;
+    
+    public function __construct() {
+        
     }
-    public function __get($value){
-        return $this->value;
+
+    public function getTipoId() {
+        return $this->tipo_id;
     }
-    public function __set($atr, $value){
-        if (property_exists($this, $atr)) {
-            $this->$atr = $value;
-        } else {
-            throw new Exception("A propriedade $atr não existe.");
-        }
+
+    public function setTipoId($tipo_id) {
+        $this->tipo_id = $tipo_id;
+    }
+
+    public function getTipoNome() {
+        return $this->tipo_nome;
+    }
+
+    public function setTipoNome($tipo_nome) {
+        $this->tipo_nome = $tipo_nome;
     }
 }

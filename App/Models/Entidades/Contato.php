@@ -18,7 +18,4 @@ class Contato {
             throw new Exception("A propriedade $atr não existe.");
         }
     }
-    public function __toString() {
-        
-    }
 }
