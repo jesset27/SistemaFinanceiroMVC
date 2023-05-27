@@ -1,58 +1,65 @@
 <?php
-require "../Entidades/TipoTransacao.php";
-class TipoUsuarioDao {
-    private $conexao;
+namespace App\Models\DAO;
+use App\Models\Entidades\TipoTransacao;
+use Exception;
+class TipoTransacaoDAO extends BaseDAO{
+    public function getById ($id)
+    {
+        $resultado = $this->select("SELECT * FROM tipo_transacao WHERE id = $id");
 
-    public function __construct($conexao) {
-        $this->conexao = $conexao;
+        return $resultado->fetchObject(TipoTransacao::class);
     }
 
-    public function inserir(TipoUsuario $tipoUsuario) {
-        $sql = "INSERT INTO tipo_usuario (tipo_nome) VALUES (?)";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $tipoUsuario->getTipoNome());
-        $stmt->execute();
-        $tipoUsuario->setTipoId($this->conexao->lastInsertId());
-        return $stmt->rowCount();
+    public function listar ()
+    {
+        $resultado = $this->select("SELECT * FROM tipo_transacao");
+
+        return $resultado->fetchAll(\PDO::FETCH_CLASS, TipoTransacao::class);
     }
 
-    public function alterar(TipoUsuario $tipoUsuario) {
-        $sql = "UPDATE tipo_usuario SET tipo_nome = ? WHERE tipo_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $tipoUsuario->getTipoNome());
-        $stmt->bindParam(2, $tipoUsuario->getTipoId());
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
+    public function salvar (TipoTransacao $tipoTransacao)
+    {
+        try {
 
-    public function remover($id) {
-        $sql = "DELETE FROM tipo_usuario WHERE tipo_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
+            $tipo_nome = $tipoTransacao->getTipoNome();
 
-    public function buscarPorId($id) {
-        $sql = "SELECT * FROM tipo_usuario WHERE tipo_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function listar() {
-        $tiposUsuario = array();
-        $sql = "SELECT * FROM tipo_usuario";
-        $stmt = $this->conexao->query($sql);
-
-        while ($tipoUsuarioArray = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $tipoUsuario = new TipoUsuario();
-            $tipoUsuario->setTipoId($tipoUsuarioArray['tipo_id']);
-            $tipoUsuario->setTipoNome($tipoUsuarioArray['tipo_nome']);
-            array_push($tiposUsuario, $tipoUsuario);
+            return $this->insert('tipo_transacao',
+             ":tipo_nome",
+             [
+                ':tipo_nome'     =>$tipo_nome
+            ]);
+            
+        }catch (\Exception $e) {
+            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
         }
+    }
 
-        return $tiposUsuario;
+    public function atualizar (TipoTransacao $tipoTransacao)
+    {
+        try {
+
+            $tipo_nome = $tipoTransacao->getTipoNome();
+
+            return $this->update('tipo_usuario', 
+                "tipo_nome = :tipo_nome",
+                [
+                    ':tipo_nome'     =>$tipo_nome,
+                    ], 
+                    "id = :id");
+            
+        } catch (\Exception $e) {
+            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+        }
+    }
+
+    public function excluir (int $id)
+    {
+        try {
+
+            return $this->delete('tipo_transacao', "id = $id");
+
+        }catch (\Exception $e) {
+            throw new \Exception("Erro ao excluir a transação. " . $e->getMessage(), 500);
+        }
     }
 }
