@@ -1,74 +1,96 @@
 <?php
-class EnderecoDAO {
-    private $conexao;
 
-    public function __construct($conexao) {
-        $this->conexao = $conexao;
+use App\Models\DAO\BaseDAO;
+use APP\Models\Entidades\Endereco;
+
+class EnderecoDAO extends BaseDAO
+{
+    public function getById($id)
+    {
+        $resultado = $this->select("SELECT * FROM endereco WHERE id = $id");
+
+        return $resultado->fetchObject(Endereco::class);
     }
 
-    public function inserir(Endereco $endereco) {
-        $sql = "INSERT INTO endereco (uso_id, end_num, end_bairro, end_logradouro, end_cep, end_cidade, end_uf) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $endereco->getUsoId());
-        $stmt->bindParam(2, $endereco->getEndNum());
-        $stmt->bindParam(3, $endereco->getEndBairro());
-        $stmt->bindParam(4, $endereco->getEndLogradouro());
-        $stmt->bindParam(5, $endereco->getEndCep());
-        $stmt->bindParam(6, $endereco->getEndCidade());
-        $stmt->bindParam(7, $endereco->getEndUf());
-        $stmt->execute();
-        return $stmt->rowCount();
+    public function listar()
+    {
+        $resultado = $this->select("SELECT * FROM endereco");
+
+        return $resultado->fetchAll(\PDO::FETCH_CLASS, Endereco::class);
     }
 
-    public function alterar(Endereco $endereco) {
-        $sql = "UPDATE endereco SET uso_id = ?, end_num = ?, end_bairro = ?, end_logradouro = ?, end_cep = ?, end_cidade = ?, end_uf = ? WHERE end_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $endereco->getUsoId());
-        $stmt->bindParam(2, $endereco->getEndNum());
-        $stmt->bindParam(3, $endereco->getEndBairro());
-        $stmt->bindParam(4, $endereco->getEndLogradouro());
-        $stmt->bindParam(5, $endereco->getEndCep());
-        $stmt->bindParam(6, $endereco->getEndCidade());
-        $stmt->bindParam(7, $endereco->getEndUf());
-        $stmt->bindParam(8, $endereco->getEndId());
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
+    public function salvar(Endereco $endereco)
+    {
+        try {
+            $uso_id = $endereco->getUsoId();
+            $end_num = $endereco->getEndNum();
+            $end_bairro = $endereco->getEndBairro();
+            $end_logradouro = $endereco->getEndLogradouro();
+            $end_cep = $endereco->getEndCep();
+            $end_cidade = $endereco->getEndCidade();
+            $end_uf = $endereco->getEndUf();
 
-    public function remover($id) {
-        $sql = "DELETE FROM endereco WHERE end_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
-
-    public function buscarPorId($id) {
-        $sql = "SELECT * FROM endereco WHERE end_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function listar() {
-        $enderecos = array();
-        $sql = "SELECT * FROM endereco";
-        $stmt = $this->conexao->query($sql);
-
-        while ($endereco_array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $endereco = new Endereco();
-            $endereco->setEndId($endereco_array['end_id']);
-            $endereco->setUsoId($endereco_array['uso_id']);
-            $endereco->setEndNum($endereco_array['end_num']);
-            $endereco->setEndBairro($endereco_array['end_bairro']);
-            $endereco->setEndLogradouro($endereco_array['end_logradouro']);
-            $endereco->setEndCep($endereco_array['end_cep']);
-            $endereco->setEndCidade($endereco_array['end_cidade']);
-            $endereco->setEndUf($endereco_array['end_uf']);
-            array_push($enderecos, $endereco);
+            return $this->insert(
+                'endereco',
+                ":uso_id, :end_num, :end_bairro, :end_logradouro, :end_cep, :end_cidade, :end_uf",
+                [
+                    ':uso_id'           => $uso_id,
+                    ':end_num'          => $end_num,
+                    ':end_bairro'       => $end_bairro,
+                    ':end_logradouro'   => $end_logradouro,
+                    ':end_cep'          => $end_cep,
+                    ':end_cidade'       => $end_cidade,
+                    ':end_uf'           => $end_uf
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
         }
+    }
 
-        return $enderecos;
+    public function atualizar(Endereco $endereco)
+    {
+        try {
+
+            $uso_id = $endereco->getUsoId();
+            $end_num = $endereco->getEndNum();
+            $end_bairro = $endereco->getEndBairro();
+            $end_lougradouro = $endereco->getEndLogradouro();
+            $end_cep = $endereco->getEndCep();
+            $end_cidade = $endereco->getEndCidade();
+            $end_uf = $endereco->getEndUf();
+
+            return $this->update(
+                'usuario',
+                "uso_id = :uso_id, 
+                end_num = :end_num, 
+                end_logradouro = :end_logradouro,
+                end_cep = :end_cep
+                end_cidade = :end_cidade
+                end_uf = :end_uf",
+                [
+                    ':uso_id'           => $uso_id,
+                    ':end_num'          => $end_num,
+                    ':end_bairro'       => $end_bairro,
+                    ':end_logradouro'   => $end_lougradouro,
+                    ':end_cep'          => $end_cep,
+                    ':end_cidade'       => $end_cidade,
+                    ':end_uf'           => $end_uf
+                ],
+                "id = :id"
+            );
+        } catch (\Exception $e) {
+            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+        }
+    }
+
+    public function excluir(int $id)
+    {
+        try {
+
+            return $this->delete('usuario', "id = $id");
+        } catch (\Exception $e) {
+            throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
+        }
     }
 }
