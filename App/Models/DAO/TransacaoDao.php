@@ -6,34 +6,35 @@ use Exception;
 class UsuarioDAO extends BaseDAO{
     public function getById ($id)
     {
-        $resultado = $this->select("SELECT * FROM usuario WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM transacao WHERE id = $id");
 
-        return $resultado->fetchObject(Usuario::class);
+        return $resultado->fetchObject(Transacao::class);
     }
 
     public function listar ()
     {
-        $resultado = $this->select("SELECT * FROM usuario");
+        $resultado = $this->select("SELECT * FROM trasacao");
 
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Usuario::class);
+        return $resultado->fetchAll(\PDO::FETCH_CLASS, Transacao::class);
     }
 
-    public function salvar (Usuario $usuario)
+    public function salvar (Transacao $transacao)
     {
         try {
+            $tipo_id = $transacao->getTipoId();
+            $uso_id = $transacao->getUsoId();
+            $tran_data = $transacao->getTranData();
+            $tran_valor = $transacao->getTranValor();
+            $tran_descricao = $transacao->getTranDescricao();
 
-            $nome = $usuario->getNome();
-            $email = $usuario->getEmail();
-            $senha = $usuario->getSenha();
-            $tusId = $usuario->getTusId();
-
-            return $this->insert('usuario',
-             ":uso_nome, :uso_email, :uso_senha, tus_id",
+            return $this->insert('transacao',
+             ":tipo_id, :uso_id, :tran_data, :tran_valor, :tran_descricao",
              [
-                ':uso_nome'     =>$nome,
-                ':uso_email'    =>$email,
-                ':uso_senha'    =>$senha,
-                ':tus_id'       =>$tusId
+                    ':tipo_id' => $tipo_id,
+                    ':uso_id:' => $uso_id,
+                    ':tran_data' => $tran_data,
+                    ':tran_valor' => $tran_valor,
+                    ':tran_descricao' => $tran_descricao
             ]);
             
         }catch (\Exception $e) {
@@ -41,23 +42,23 @@ class UsuarioDAO extends BaseDAO{
         }
     }
 
-    public function atualizar (Usuario $usuario)
+    public function atualizar (Transacao $transacao)
     {
         try {
-
-            $id = $usuario->getId();
-            $nome = $usuario->getNome();
-            $email = $usuario->getEmail();
-            $senha = $usuario->getSenha();
-            $tusId = $usuario->getTusId();
+            $tipo_id = $transacao->getTipoId();
+            $uso_id = $transacao->getUsoId();
+            $tran_data = $transacao->getTranData();
+            $tran_valor = $transacao->getTranValor();
+            $tran_descricao = $transacao->getTranDescricao();
 
             return $this->update('usuario', 
-                "uso_nome = :uso_nome, uso_email = :uso_email, uso_senha = :uso_senha, tus_id = :tus_id ",
+                "tipo_id = :tipo_id, uso_id = :uso_id, tran_data = :tran_data, tran_valor = :tran_valor, tran_descricao = :tran_descricao",
                 [
-                    ':uso_nome'     =>$nome,
-                    ':uso_email'    =>$email,
-                    ':uso_senha'    =>$senha,
-                    ':tus_id'       =>$tusId
+                    ':tipo_id' => $tipo_id,
+                    ':uso_id:' => $uso_id,
+                    ':tran_data' => $tran_data,
+                    ':tran_valor' => $tran_valor,
+                    ':tran_descricao' => $tran_descricao
                     ], 
                     "id = :id");
             
@@ -70,10 +71,10 @@ class UsuarioDAO extends BaseDAO{
     {
         try {
 
-            return $this->delete('usuario', "id = $id");
+            return $this->delete('transacao', "id = $id");
 
         }catch (\Exception $e) {
-            throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
+            throw new \Exception("Erro ao excluir a transacao. " . $e->getMessage(), 500);
         }
     }
 }
