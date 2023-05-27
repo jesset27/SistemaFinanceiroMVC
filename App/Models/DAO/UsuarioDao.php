@@ -28,7 +28,7 @@ class UsuarioDAO extends BaseDAO{
             $tusId = $usuario->getTusId();
 
             return $this->insert('usuario',
-             ":uso_nome, :uso_email, :uso_senha, tus_id",
+             ":uso_nome, :uso_email, :uso_senha, :tus_id",
              [
                 ':uso_nome'     =>$nome,
                 ':uso_email'    =>$email,

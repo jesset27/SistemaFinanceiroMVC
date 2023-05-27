@@ -3,7 +3,7 @@ namespace App\Models\DAO;
 use App\Models\Entidades\Transacao;
 use Exception;
 
-class UsuarioDAO extends BaseDAO{
+class TransacaoDAO extends BaseDAO{
     public function getById ($id)
     {
         $resultado = $this->select("SELECT * FROM transacao WHERE id = $id");

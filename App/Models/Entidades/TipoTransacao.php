@@ -1,5 +1,6 @@
 <?php
-class TipoUsuario {
+namespace App\Models\Entidades;
+class TipoTransacao {
     private $tipo_id;
     private $tipo_nome;
     

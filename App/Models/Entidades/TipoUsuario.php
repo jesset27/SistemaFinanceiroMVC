@@ -1,4 +1,5 @@
 <?php 
+namespace App\Models\Entidades;
 class TipoUsuario {
     private $tipo_nome;
     
