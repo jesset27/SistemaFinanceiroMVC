@@ -1,55 +1,56 @@
 <?php
+namespace App\Models\Entidades;
 class Usuario {
-    private int $uso_id;
-    private string $uso_nome;
-    private string $uso_email;
-    private string $uso_senha;
-    private int $tus_id;
+    private int $id;
+    private string $nome;
+    private string $email;
+    private string $senha;
+    private int $tusid;
 
-    public function __construct($uso_nome, $uso_email, $uso_senha, $tus_id) {
-        $this->uso_nome = $uso_nome;
-        $this->uso_email = $uso_email;
-        $this->uso_senha = $uso_senha;
-        $this->tus_id = $tus_id;
+    public function construct($nome, $email, $senha, $tusid) {
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->senha = $senha;
+        $this->tusid = $tusid;
     }
 
-    public function getUsoId() {
-        return $this->uso_id;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setUsoId($uso_id) {
-        $this->uso_id = $uso_id;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getUsoNome() {
-        return $this->uso_nome;
+    public function getNome() {
+        return $this->nome;
     }
 
-    public function setUsoNome($uso_nome) {
-        $this->uso_nome = $uso_nome;
+    public function setNome($nome) {
+        $this->nome = $nome;
     }
 
-    public function getUsoEmail() {
-        return $this->uso_email;
+    public function getEmail() {
+        return $this->email;
     }
 
-    public function setUsoEmail($uso_email) {
-        $this->uso_email = $uso_email;
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
-    public function getUsoSenha() {
-        return $this->uso_senha;
+    public function getSenha() {
+        return $this->senha;
     }
 
-    public function setUsoSenha($uso_senha) {
-        $this->uso_senha = $uso_senha;
+    public function setSenha($senha) {
+        $this->senha = $senha;
     }
 
     public function getTusId() {
-        return $this->tus_id;
+        return $this->tusid;
     }
 
-    public function setTusId($tus_id) {
-        $this->tus_id = $tus_id;
+    public function setTusId($tusid) {
+        $this->tusid = $tusid;
     }
 }

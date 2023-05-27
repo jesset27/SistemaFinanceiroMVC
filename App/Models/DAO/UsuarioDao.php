@@ -1,66 +1,81 @@
-<?php
-require "../Entidades/Usuario.php";
+<?php 
+namespace App\Models\DAO;
+use App\Models\Entidades\Usuario;
+use Exception;
 
-class UsuarioDAO
-{
-    private $conexao;
-
-    public function __construct($conexao)
+class UsuarioDAO extends BaseDAO{
+    public function getById ($id)
     {
-        $this->conexao = $conexao;
+        $resultado = $this->select("SELECT * FROM usuario WHERE id = $id");
+
+        return $resultado->fetchObject(Usuario::class);
     }
 
-    public function inserir(Usuario $usuario)
+    public function listar ()
     {
-        $sql = "INSERT INTO usuario (uso_nome, uso_email, uso_senha, tus_id) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $usuario->getUsoNome());
-        $stmt->bindParam(2, $usuario->getUsoEmail());
-        $stmt->bindParam(3, $usuario->getUsoSenha());
-        $stmt->bindParam(4, $usuario->getTusId());
-        $stmt->execute();
-        return $stmt->rowCount();
+        $resultado = $this->select("SELECT * FROM usuario");
+
+        return $resultado->fetchAll(\PDO::FETCH_CLASS, Usuario::class);
     }
 
-    public function alterar(Usuario $usuario)
+    public function salvar (Usuario $usuario)
     {
-        $sql = "UPDATE usuario SET uso_nome = ?, uso_email = ?, uso_senha = ?, tus_id = ? WHERE uso_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $usuario->getUsoNome());
-        $stmt->bindParam(2, $usuario->getUsoEmail());
-        $stmt->bindParam(3, $usuario->getUsoSenha());
-        $stmt->bindParam(4, $usuario->getTusId());
-        $stmt->bindParam(5, $usuario->getUsoId());
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
+        try {
 
-    public function remover($id)
-    {
-        $sql = "DELETE FROM usuario WHERE uso_id = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
-    public function listar()
-    {
-        $usuarios = array();
-        $sql = "SELECT * FROM usuario";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->execute();
+            $nome = $usuario->getNome();
+            $email = $usuario->getEmail();
+            $senha = $usuario->getSenha();
+            $tusId = $usuario->getTusId();
 
-        while ($usuario_array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario(
-                $usuario_array['uso_nome'],
-                $usuario_array['uso_email'],
-                $usuario_array['uso_senha'],
-                $usuario_array['tus_id']
-            );
-            $usuario->setUsoId($usuario_array['uso_id']);
-            array_push($usuarios, $usuario);
+            return $this->insert('usuario',
+             ":nome, :email, :senha, tusId",
+             [
+                ':nome'     =>$nome,
+                ':email'    =>$email,
+                ':senha'    =>$senha,
+                ':tusId'    =>$tusId
+            ]);
+            
+        }catch (\Exception $e) {
+            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
         }
+    }
 
-        return $usuarios;
+    public function atualizar (Usuario $usuario)
+    {
+        try {
+
+            $id = $usuario->getId();
+            $nome = $usuario->getNome();
+            $email = $usuario->getEmail();
+            $senha = $usuario->getSenha();
+            $tusId = $usuario->getTusId();
+
+            return $this->update('usuario', 
+                "nome = :nome",
+                [
+                    ':id'       =>$id, 
+                    ':nome'     =>$nome,
+                    ':email'    =>$email,
+                    ':senha'    =>$senha,
+                    ':tusId'    =>$tusId
+
+                    ], 
+                    "id = :id");
+            
+        } catch (\Exception $e) {
+            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+        }
+    }
+
+    public function excluir (int $id)
+    {
+        try {
+
+            return $this->delete('usuario', "id = $id");
+
+        }catch (\Exception $e) {
+            throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
+        }
     }
 }
