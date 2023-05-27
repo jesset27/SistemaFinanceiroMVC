@@ -28,12 +28,12 @@ class UsuarioDAO extends BaseDAO{
             $tusId = $usuario->getTusId();
 
             return $this->insert('usuario',
-             ":nome, :email, :senha, tusId",
+             ":uso_nome, :uso_email, :uso_senha, tus_id",
              [
-                ':nome'     =>$nome,
-                ':email'    =>$email,
-                ':senha'    =>$senha,
-                ':tusId'    =>$tusId
+                ':uso_nome'     =>$nome,
+                ':uso_email'    =>$email,
+                ':uso_senha'    =>$senha,
+                ':tus_id'       =>$tusId
             ]);
             
         }catch (\Exception $e) {
@@ -52,14 +52,12 @@ class UsuarioDAO extends BaseDAO{
             $tusId = $usuario->getTusId();
 
             return $this->update('usuario', 
-                "nome = :nome",
+                "uso_nome = :uso_nome, uso_email = :uso_email, uso_senha = :uso_senha, tus_id = :tus_id ",
                 [
-                    ':id'       =>$id, 
-                    ':nome'     =>$nome,
-                    ':email'    =>$email,
-                    ':senha'    =>$senha,
-                    ':tusId'    =>$tusId
-
+                    ':uso_nome'     =>$nome,
+                    ':uso_email'    =>$email,
+                    ':uso_senha'    =>$senha,
+                    ':tus_id'       =>$tusId
                     ], 
                     "id = :id");
             
