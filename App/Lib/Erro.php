@@ -9,7 +9,7 @@ class Erro
     private $message;
     private $code;
 
-    public function __construct(Exception $objetoException = Exception::class)
+    public function __construct(Exception $objetoException = null)
     {
         $this->code     = $objetoException->getCode();
         $this->message  = $objetoException->getMessage();

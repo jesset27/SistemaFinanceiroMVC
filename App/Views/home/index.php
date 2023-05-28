@@ -1,4 +1,4 @@
-<?php require "./App/Views/layouts/header.php"; ?>
+<link rel="stylesheet" type="text/css" href="http://<?php echo APP_HOST; ?>/public/css/style-index.css">
 <nav>
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
@@ -6,7 +6,7 @@
     </label>
     <label class="logo"><img src="http://<?php echo APP_HOST; ?>/public/img/logoBranca3.png" alt=""></label>
     <ul>
-        <li><a href="">Login</a></li>
+        <li><a href="http://<?php echo APP_HOST; ?>/login">Login</a></li>
     </ul>
 </nav>
 <main class="container align-content-center d-flex justify-content-center p-5">

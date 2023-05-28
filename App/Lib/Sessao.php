@@ -4,6 +4,11 @@ namespace App\Lib;
 
 class Sessao
 {
+    public static function gravaLogin($uso_id, $uso_nome){
+        $_SESSION['loggedin'] = true;
+        $_SESSION['uso_id'] = $uso_id;
+        $_SESSION['uso_nome'] = $uso_nome;
+    }
     public static function gravaMensagem($mensagem){
         $_SESSION['mensagem'] = $mensagem;
     }
@@ -42,6 +47,14 @@ class Sessao
 
     public static function limpaErro(){
         unset($_SESSION['erro']);
+    }
+
+    public static function gravarTipoUsuario($tipo_usuario){
+        $_SESSION['tipo_usuario'] = $tipo_usuario;
+    }
+    
+    public static function retornaTipoUsuario(){
+        return (isset($_SESSION['tipo_usuario'])) ? $_SESSION['tipo_usuario'] : "";
     }
 
 }
