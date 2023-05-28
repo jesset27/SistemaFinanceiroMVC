@@ -39,7 +39,7 @@
               <td style="text-align:center">R$ <?= number_format($transacao->__get('tran_valor'), 2, ',', '.' ); ?></td>
               <td style="text-align:center">
                 <a href="http://<?php echo APP_HOST .'/transacao/'. $viewVar['editar'] ; ?>?tran_id=<?php echo $transacao->__get('tran_id'); ?>"><button type="button" class="btn btn-primary-acao">Editar</button></a>
-                <a href="http://<?php echo APP_HOST; ?>/delete_transacao?tran_id=<?php echo $transacao->__get('tran_id'); ?>"><button type="button" class="btn btn-danger">Excluir</button></a>
+                <a href="http://<?php echo APP_HOST; ?>/transacao/excluir?tran_id=<?php echo $transacao->__get('tran_id'); ?>&tran_tipo=<?= $viewVar['nomeTransacao'] ?>"><button type="button" class="btn btn-danger">Excluir</button></a>
               </td>
             </tr>
           <?php } ?>

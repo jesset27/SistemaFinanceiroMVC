@@ -124,10 +124,26 @@ class TransacaoController extends Controller
         Sessao::gravaMensagem("Despesa adicionada com sucesso!");
         
         $this->redirect('/transacao/'.$transacaoNome.'s');
-       
     }
 
-    
-    
+    public function excluir()
+    {
+        $this->auth();
+
+        $transacao = new Transacao();
+        $transacao->__set('tran_id', $_GET['tran_id']);
+        $tran_tipo = $_GET['tran_tipo'];
+
+        $transacaoDAO = new TransacaoDAO();
+
+        if(!$transacaoDAO->excluir($transacao->__get('tran_id'))){
+            Sessao::gravaMensagem("Produto (id:{$transacao->__get('tran_id')}) inexistente.");
+            $this->redirect('/transacao/'. $tran_tipo);
+        }
+
+        Sessao::gravaMensagem("Produto '{$transacao->__get('tran_id')}' excluido com sucesso!");
+
+        $this->redirect('/transacao/'. $tran_tipo);
+    }
 
 }
