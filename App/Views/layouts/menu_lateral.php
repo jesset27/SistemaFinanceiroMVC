@@ -1,6 +1,6 @@
 <section id="menu">
     <div class="logo">
-        <img src="./img/logoDinheiro.png" alt="">
+        <img src="http://<?php echo APP_HOST; ?>/public/img/logoDinheiro.png" alt="">
         <h2>NuAzul<h2>
     </div>
     <div class="itens">
@@ -11,10 +11,10 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
 
                 <li>
-                    <a href="./insert_despesa.php"><i class="las la-sort-amount-down"></i>Despesa</a>
+                    <a href="http://<?php echo APP_HOST; ?>/transacao/despesas"><i class="las la-sort-amount-down"></i>Despesa</a>
                 </li>
                 <li>
-                    <a href="./insert_receita.php"><i class="las la-sort-amount-up"></i>Receita</a>
+                    <a href="http://<?php echo APP_HOST; ?>/transacao/receitas"><i class="las la-sort-amount-up"></i>Receita</a>
                 </li>
 
             </ul>
