@@ -3,12 +3,9 @@
 namespace App\Controllers;
 
 use App\Lib\Sessao;
-use App\Models\DAO\UsuarioDAO;
 use App\Models\DAO\TransacaoDAO;
-use App\Models\Entidades\Usuario;
 use App\Models\Entidades\Transacao;
 use App\Models\Validacao\TransacaoValidador;
-use App\Enums\EnumTipoUsuario;
 use App\Enums\EnumTipoTransacao;
 class TransacaoController extends Controller
 {

@@ -47,7 +47,7 @@ class LoginController extends Controller
         Sessao::limpaFormulario();
         Sessao::limpaErro();
 
-        //Sessao::gravaMensagem("Usuário logado com sucesso!");
+        Sessao::gravaMensagem("Usuário logado com sucesso!");
 
         $this->redirect('/login/dashboard');
 
@@ -59,6 +59,7 @@ class LoginController extends Controller
         $this->render('login/cadastro');
 
         Sessao::limpaErro();
+        Sessao::limpaMensagem();
     }
 
     public function registrar()

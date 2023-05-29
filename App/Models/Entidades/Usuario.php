@@ -8,14 +8,6 @@ class Usuario {
     private string $uso_senha;
     private int $tus_id;
 
-    // public function __construct($id = null, $nome = null, $email = null, $senha = null, $tusid = null) {
-    //     $this->id = $id;
-    //     $this->nome = $nome;
-    //     $this->email = $email;
-    //     $this->senha = $senha;
-    //     $this->tusid = $tusid;
-    // }
-
     public function __get($nome_atributo)
 	{
 		return $this->$nome_atributo;

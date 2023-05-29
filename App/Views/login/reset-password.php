@@ -5,19 +5,21 @@
     <div class="row">
         <div class="col-md-8" style="padding-left: 40px;">
             <br />
-            <?php if($Sessao::retornaMensagem()){ ?>
+            <?php if ($Sessao::retornaMensagem()) { ?>
                 <div class="alert alert-warning" role="alert">
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?= $Sessao::retornaMensagem() ?> 
+                    <?= $Sessao::retornaMensagem() ?>
                     <br>
                 </div>
-            <?php } ?>       
-            <?php if($Sessao::retornaErro()){ ?>
+            <?php } ?>
+            <?php if ($Sessao::retornaErro()) { ?>
                 <div class="alert alert-warning" role="alert">
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php foreach($Sessao::retornaErro() as $key => $mensagem) { echo $mensagem . "<br />"; } ?> 
+                    <?php foreach ($Sessao::retornaErro() as $key => $mensagem) {
+                        echo $mensagem . "<br />";
+                    } ?>
                 </div>
-            <?php } ?>  
+            <?php } ?>
             <div class="table-responsive col-md-6">
                 <form action="http://<?php echo APP_HOST; ?>/usuario/resetPassword" method="post" id="form_cadastro">
                     <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $viewVar['usuario']->__get("uso_id"); ?>">
@@ -28,16 +30,16 @@
                     <br />
                     <div class="form-group">
                         <label for="senha">Nova Senha:</label>
-                        <input type="senha" class="form-control" name="senha" placeholder="Sua nova senha" value="" required>
-                    </div>    
+                        <input type="password" class="form-control" name="senha" placeholder="Sua nova senha" value="" required>
+                    </div>
                     <br />
                     <div class="form-group">
                         <label for="senha_confirme">Confirmação da Nova Senha:</label>
-                        <input type="senha" class="form-control" name="senha_confirme" placeholder="Confirmação da senha" value="" required>
-                    </div>    
+                        <input type="password" class="form-control" name="senha_confirme" placeholder="Confirmação da senha" value="" required>
+                    </div>
                     <br />
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Atualizar </button>          
+                        <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Atualizar </button>
                         <a href="http://<?php echo APP_HOST; ?>/login/dashboard" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar </a>
                     </div>
                 </form>

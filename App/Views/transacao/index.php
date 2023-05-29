@@ -5,9 +5,6 @@
       <h2 class="signin-text mb-3"><?= $viewVar['nomeTransacao'] ?></h2>
       <p>Listagem de <?= $viewVar['nomeTransacao'] ?> cadastradas.</p>
       <br />
-        <!-- <div class="col-md-12">
-            <a href="http://<?php echo APP_HOST; ?>/login/cadastro" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar</a>
-        </div> -->
       <hr>
           <form class="data" method="post">
             <h4 class="tituloData">Selecione uma data</h4>
