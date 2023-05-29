@@ -9,7 +9,7 @@ class TransacaoDAO extends BaseDAO
 {
     public function getById($id)
     {
-        $resultado = $this->select("SELECT * FROM transacao WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM transacao WHERE tran_id = $id");
 
         return $resultado->fetchObject(Transacao::class);
     }
@@ -58,23 +58,21 @@ class TransacaoDAO extends BaseDAO
         try {
             $tran_id = $transacao->__get("tran_id");
             $tipo_id = $transacao->__get("tipo_id");
-            $uso_id = $transacao->__get("uso_id");
             $tran_data = $transacao->__get("tran_data");
             $tran_valor = $transacao->__get("tran_valor");
             $tran_descricao = $transacao->__get("tran_descricao");
 
             return $this->update(
-                'usuario',
-                ":tipo_id, :uso_id, :tran_data, :tran_valor, :tran_descricao",
+                'transacao',
+                "tipo_id = :tipo_id, tran_data = :tran_data, tran_valor = :tran_valor, tran_descricao = :tran_descricao",
                 [
                     ':tran_id' => $tran_id,
                     ':tipo_id' => $tipo_id,
-                    ':uso_id' => $uso_id,
                     ':tran_data' => $tran_data,
                     ':tran_valor' => $tran_valor,
                     ':tran_descricao' => $tran_descricao
                 ],
-                "uso_id = :uso_id"
+                "tran_id = :tran_id"
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
