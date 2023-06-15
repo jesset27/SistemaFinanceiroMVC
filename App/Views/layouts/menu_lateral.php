@@ -33,22 +33,22 @@
         <?php
         if ($Sessao::retornaTipoUsuario() == $EnumTipoUsuario::ADMIN->value) {
         ?>
-            <!-- <li>
+            <li>
                 <a href="./administrador.php"><i class="las la-comment-alt"></i>Mensagens</a>
-            </li> -->
+            </li>
         <?php
         } else {
         ?>
-            <!-- <li>
-                <a href="./contato_usuario.php"><i class="las la-comment-alt"></i>Contato</a>
-            </li> -->
+            <li>
+                <a href="http://<?php echo APP_HOST; ?>/contato/index.php"><i class="las la-comment-alt"></i>Contato</a>
+            </li>
         <?php
         }
-        ?>
+        ?>                                                                                                                                                                                     
 
-        <!-- <li>
-            <a href="./alterar_dados_cadastrais.php"><i class="las la-cog"></i>Configurações</a>
-        </li> -->
+        <li>
+            <a href="http://<?php echo APP_HOST; ?>/alterar_dados_cadastrais/index.php"><i class="las la-cog"></i>Configurações</a>
+        </li>
         <li>
             <a href="http://<?php echo APP_HOST; ?>/home/index"><i class="las la-power-off"></i>Logout</a>
         </li>
