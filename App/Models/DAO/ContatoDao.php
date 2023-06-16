@@ -1,14 +1,11 @@
-<?php 
-namespace App\Models\DAO;
-use App\Models\Entidades\Contato;
-use Exception;
-class ContatoDao extends BaseDAO {
-    public function getById($id)
-    {
-        $resultado = $this->select("SELECT * FROM contatos WHERE uso_id = $id");
+<?php
 
-        return $resultado->fetchObject(Contato::class);
-    }
+namespace App\Models\DAO;
+
+use App\Models\Entidades\Contato;
+
+class ContatoDao extends BaseDAO
+{
 
     public function listar()
     {
@@ -26,39 +23,17 @@ class ContatoDao extends BaseDAO {
             $con_msg = $contato->__get("con_msg");
             $con_titulo = $contato->__get("con_titulo");
 
-            return $this->insert('contatos',
-             ":uso_id, :con_msg, :con_titulo",
-             [
-                ':uso_id'       => $uso_id,
-                ':con_msg'      => $con_msg,
-                ':con_titulo'   => $con_titulo,
-            ]);
-            
-        }catch (\Exception $e) {
-            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
-        }
-    }
-
-    public function atualizar(Contato $contato)
-    {
-        try {
-            $con_id = $contato->__get("con_id");
-            $con_msg = $contato->__get("con_msg");
-            $con_titulo = $contato->__get("con_titulo");
-            $con_lida = $contato->__get("con_lida");
-
-            return $this->update('contatos', 
-                "con_msg = :con_msg, con_titulo = :con_titulo, con_lida = :con_lida",
+            return $this->insert(
+                'contatos',
+                ":uso_id, :con_msg, :con_titulo",
                 [
-                    ':con_id'       => $con_id,
-                    ':con_mgs'      => $con_msg,
+                    ':uso_id'       => $uso_id,
+                    ':con_msg'      => $con_msg,
                     ':con_titulo'   => $con_titulo,
-                    ':con_lida'     => $con_lida,
-                    ], 
-                    "con_id = :con_id");
-            
+                ]
+            );
         } catch (\Exception $e) {
-            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
         }
     }
 
@@ -68,25 +43,26 @@ class ContatoDao extends BaseDAO {
             $con_id = $contato->__get("con_id");
             $con_lida = $contato->__get("con_lida");
 
-            return $this->update('contatos', 
+            return $this->update(
+                'contatos',
                 "con_lida = :con_lida",
                 [
                     ':con_id'       => $con_id,
                     ':con_lida'     => $con_lida,
-                    ], 
-                    "con_id = :con_id");
-            
+                ],
+                "con_id = :con_id"
+            );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
         }
     }
+
     public function excluir(int $id)
     {
         try {
 
             return $this->delete('contatos', "con_id = $id");
-
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new \Exception("Erro ao excluir o contato. " . $e->getMessage(), 500);
         }
     }

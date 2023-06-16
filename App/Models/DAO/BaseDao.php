@@ -13,18 +13,16 @@ abstract class BaseDAO
         $this->conexao = Conexao::getConnection();
     }
 
-    public function select($sql) 
+    public function select($sql)
     {
-        if(!empty($sql))
-        {
+        if (!empty($sql)) {
             return $this->conexao->query($sql);
         }
     }
 
-    public function insert($table, $cols, $values) 
+    public function insert($table, $cols, $values)
     {
-        if(!empty($table) && !empty($cols) && !empty($values))
-        {
+        if (!empty($table) && !empty($cols) && !empty($values)) {
             $parametros    = $cols;
             $colunas       = str_replace(":", "", $cols);
             /*
@@ -35,39 +33,35 @@ abstract class BaseDAO
 
             //return $stmt->rowCount();
             return $this->conexao->lastInsertId();
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function update($table, $cols, $values, $where=null)
+    public function update($table, $cols, $values, $where = null)
     {
-        if(!empty($table) && !empty($cols) && !empty($values))
-        {
-            if($where)
-            {
+        if (!empty($table) && !empty($cols) && !empty($values)) {
+            if ($where) {
                 $where = " WHERE $where ";
             }
 
             $stmt = $this->conexao->prepare("UPDATE $table SET $cols $where");
-            
+
             $stmt->execute($values);
             return $stmt->rowCount();
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function delete($table, $where=null)
+    public function delete($table, $where = null)
     {
-        if(!empty($table))
-        {
+        if (!empty($table)) {
             /*
                 DELETE usuario WHERE id = 1
             */
 
-            if($where)
-            {
+            if ($where) {
                 $where = " WHERE $where ";
             }
 
@@ -75,7 +69,7 @@ abstract class BaseDAO
             $stmt->execute();
 
             return $stmt->rowCount();
-        }else{
+        } else {
             return false;
         }
     }

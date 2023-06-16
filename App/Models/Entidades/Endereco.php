@@ -14,9 +14,9 @@ class Endereco
     private $end_uf;
 
     public function __get($nome_atributo)
-	{
-		return $this->$nome_atributo;
-	}
+    {
+        return $this->$nome_atributo;
+    }
 
     public function __set($nome_atributo, $value)
     {

@@ -7,11 +7,13 @@ use App\Models\DAO\TransacaoDAO;
 use App\Models\Entidades\Transacao;
 use App\Models\Validacao\TransacaoValidador;
 use App\Enums\EnumTipoTransacao;
+
 class TransacaoController extends Controller
 {
     public function receitas()
     {
         $this->auth();
+
         $uso_id = $_SESSION['uso_id'];
         $dataCompleta = date("Y-m");
         $data = [date("Y"), date("m")];
@@ -27,8 +29,8 @@ class TransacaoController extends Controller
         $this->setViewParam('nomeTransacao', 'Receitas');
         $this->setViewParam('insere', 'insertReceita');
         $this->setViewParam('edicao', 'edicao');
-        
-        $this->render('transacao/index'); 
+
+        $this->render('transacao/index');
 
         Sessao::limpaMensagem();
     }
@@ -36,6 +38,7 @@ class TransacaoController extends Controller
     public function despesas()
     {
         $this->auth();
+
         $uso_id = $_SESSION['uso_id'];
         $dataCompleta = date("Y-m");
         $data = [date("Y"), date("m")];
@@ -54,29 +57,29 @@ class TransacaoController extends Controller
         $this->setViewParam('insere', 'insertDespesa');
         $this->setViewParam('edicao', 'edicao');
 
-        $this->render('transacao/index'); 
+        $this->render('transacao/index');
 
         Sessao::limpaMensagem();
     }
 
-    public function insertDespesa(){
+    public function insertDespesa()
+    {
 
         $this->auth();
         $this->setViewParam('nomeTransacao', 'Despesa');
         $this->setViewParam('tipo_id', EnumTipoTransacao::DESPESA->value);
-        $this->render('transacao/insert'); 
+        $this->render('transacao/insert');
 
         Sessao::limpaFormulario();
         Sessao::limpaMensagem();
         Sessao::limpaErro();
-
     }
     public function insertReceita()
     {
         $this->auth();
         $this->setViewParam('nomeTransacao', 'Receita');
         $this->setViewParam('tipo_id', EnumTipoTransacao::RECEITA->value);
-        $this->render('transacao/insert'); 
+        $this->render('transacao/insert');
 
         Sessao::limpaFormulario();
         Sessao::limpaMensagem();
@@ -98,9 +101,9 @@ class TransacaoController extends Controller
         $transacaoValidador = new TransacaoValidador();
         $resultadoValidacao = $transacaoValidador->validar($transacao);
 
-        if ($resultadoValidacao->getErros()){
+        if ($resultadoValidacao->getErros()) {
             Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/transacao/insert'.$transacaoNome);
+            $this->redirect('/transacao/insert' . $transacaoNome);
         }
 
         try {
@@ -109,7 +112,7 @@ class TransacaoController extends Controller
             $transacao->__set("tran_id", $lasId);
         } catch (\Exception $e) {
             Sessao::gravaErro($e->getMessage());
-            $this->redirect('/transacao/insert'.$transacaoNome);
+            $this->redirect('/transacao/insert' . $transacaoNome);
         }
 
         Sessao::limpaFormulario();
@@ -117,8 +120,8 @@ class TransacaoController extends Controller
         Sessao::limpaErro();
 
         Sessao::gravaMensagem("Despesa adicionada com sucesso!");
-        
-        $this->redirect('/transacao/'.$transacaoNome.'s');
+
+        $this->redirect('/transacao/' . $transacaoNome . 's');
     }
 
     public function edicao($params)
@@ -132,16 +135,16 @@ class TransacaoController extends Controller
         $transacao = $transacaoDAO->getById($id);
         $transacaoNome = $transacao->__get("tipo_id") == EnumTipoTransacao::DESPESA->value ? 'despesa' : 'receita';
 
-        if(!$transacao){
+        if (!$transacao) {
             Sessao::gravaMensagem("transacao (id:{$id}) inexistente.");
             $this->redirect('/transacao');
         }
 
         $transacaoDAO = new TransacaoDAO();
 
-        
+
         self::setViewParam('nomeTransacao', $transacaoNome);
-        self::setViewParam('transacao',$transacao);
+        self::setViewParam('transacao', $transacao);
 
         $this->render('transacao/edicao');
 
@@ -166,19 +169,18 @@ class TransacaoController extends Controller
         $transacaoValidador = new TransacaoValidador();
         $resultadoValidacao = $transacaoValidador->validar($transacao);
 
-        if($resultadoValidacao->getErros()){
+        if ($resultadoValidacao->getErros()) {
             Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/transacao/edicao/'.$_POST['tran_id']);
+            $this->redirect('/transacao/edicao/' . $_POST['tran_id']);
         }
 
         try {
 
             $transacaoDAO = new TransacaoDAO();
             $transacaoDAO->atualizar($transacao);
-
         } catch (\Exception $e) {
             Sessao::gravaErro($e->getMessage());
-            $this->redirect('/transacao/edicao/'.$_POST['tran_id']);
+            $this->redirect('/transacao/edicao/' . $_POST['tran_id']);
         }
 
         Sessao::limpaFormulario();
@@ -187,7 +189,7 @@ class TransacaoController extends Controller
 
         Sessao::gravaMensagem("Transacao atualizado com sucesso!");
 
-        $this->redirect('/transacao/' . ($transacao->__get('tipo_id') == EnumTipoTransacao::DESPESA->value ? 'despesas' : 'receitas')  );
+        $this->redirect('/transacao/' . ($transacao->__get('tipo_id') == EnumTipoTransacao::DESPESA->value ? 'despesas' : 'receitas'));
     }
 
     public function excluir()
@@ -200,14 +202,13 @@ class TransacaoController extends Controller
 
         $transacaoDAO = new TransacaoDAO();
 
-        if(!$transacaoDAO->excluir($transacao->__get('tran_id'))){
+        if (!$transacaoDAO->excluir($transacao->__get('tran_id'))) {
             Sessao::gravaMensagem("Transacao (id:{$transacao->__get('tran_id')}) inexistente.");
-            $this->redirect('/transacao/'. $tran_tipo);
+            $this->redirect('/transacao/' . $tran_tipo);
         }
 
         Sessao::gravaMensagem("transacao '{$transacao->__get('tran_id')}' excluido com sucesso!");
 
-        $this->redirect('/transacao/'. $tran_tipo);
+        $this->redirect('/transacao/' . $tran_tipo);
     }
-
 }

@@ -2,23 +2,23 @@
 
 <div class="container" style="margin-left:200px">
     <div class="row content">
-    <?php if ($Sessao::retornaMensagem()) { ?>
-                <div class="alert alert-warning" role="alert">
-                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?= $Sessao::retornaMensagem() ?>
-                    <br>
-                </div>
-            <?php } ?>
-            <?php if ($Sessao::retornaErro()) { ?>
-                <div class="alert alert-warning" role="alert">
-                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php foreach ($Sessao::retornaErro() as $key => $mensagem) {
-                        echo $mensagem . "<br />";
-                    } ?>
-                </div>
-            <?php } else {
-                $Sessao::limpaFormulario();
-            } ?>
+        <?php if ($Sessao::retornaMensagem()) { ?>
+            <div class="alert alert-warning" role="alert">
+                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?= $Sessao::retornaMensagem() ?>
+                <br>
+            </div>
+        <?php } ?>
+        <?php if ($Sessao::retornaErro()) { ?>
+            <div class="alert alert-warning" role="alert">
+                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?php foreach ($Sessao::retornaErro() as $key => $mensagem) {
+                    echo $mensagem . "<br />";
+                } ?>
+            </div>
+        <?php } else {
+            $Sessao::limpaFormulario();
+        } ?>
         <div class="col-md-6 mb-3">
             <img src="http://<?php echo APP_HOST; ?>/public/img/alterar.png" class="img-fluid" alt="image">
         </div>
@@ -27,7 +27,7 @@
             <p>Por favor, preencha os campos do formulário para cadastrar endereço.</p>
             <hr />
             <br />
-            
+
             <div class="table-responsive">
                 <form action="http://<?php echo APP_HOST; ?>/endereco/<?php echo $viewVar['formAction']; ?>" method="post" id="form_cadastro">
                     <input type="hidden" class="form-control" name="uso_id" id="uso_id" value="<?php echo $viewVar['endereco']->__get('uso_id'); ?>">

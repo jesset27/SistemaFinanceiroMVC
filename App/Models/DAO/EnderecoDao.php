@@ -14,13 +14,6 @@ class EnderecoDAO extends BaseDAO
         return $resultado->fetchObject(Endereco::class);
     }
 
-    public function listar()
-    {
-        $resultado = $this->select("SELECT * FROM endereco");
-
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Endereco::class);
-    }
-
     public function salvar(Endereco $endereco)
     {
         try {
@@ -83,16 +76,6 @@ class EnderecoDAO extends BaseDAO
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
-        }
-    }
-
-    public function excluir(int $id)
-    {
-        try {
-
-            return $this->delete('endereco', "uso_id = $id");
-        } catch (\Exception $e) {
-            throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
         }
     }
 }

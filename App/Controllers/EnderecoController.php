@@ -16,7 +16,7 @@ class EnderecoController extends Controller
 
         $endereco = new Endereco();
         $endereco->__set("uso_id", $_SESSION['uso_id']);
-        
+
         $enderecoDAO = new EnderecoDAO();
 
         $checaEndereco = $enderecoDAO->getById($endereco->__get('uso_id'));
@@ -94,7 +94,7 @@ class EnderecoController extends Controller
         self::setViewParam('endereco', $endereco);
 
         $this->render('/endereco/form');
-        
+
         Sessao::limpaMensagem();
     }
 

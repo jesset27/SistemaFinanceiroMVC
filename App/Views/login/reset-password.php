@@ -55,7 +55,7 @@
                         </div>
                         <br />
                         <div class="form-group">
-                        <br />
+                            <br />
                             <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar </button>
                             <a href="http://<?php echo APP_HOST; ?>/login/dashboard" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar </a>
                         </div>

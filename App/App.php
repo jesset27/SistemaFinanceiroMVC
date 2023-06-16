@@ -15,7 +15,7 @@ class App
 
     public function __construct()
     {
-        
+
         /*
          * Constantes do sistema
          */
@@ -78,7 +78,7 @@ class App
         if (!class_exists($nomeClasse)) {
             throw new Exception("Erro na aplicação", 500);
         }
-        
+
         if (method_exists($objetoController, $this->action)) {
             $objetoController->{$this->action}($this->params);
             return;
@@ -90,30 +90,32 @@ class App
         }
     }
 
-    public function url () {
-        
-        if ( isset( $_GET['url'] ) ) {
+    public function url()
+    {
+
+        if (isset($_GET['url'])) {
 
             $path = $_GET['url'];
             $path = rtrim($path, '/');
-            $path = filter_var($path, FILTER_SANITIZE_URL); 
+            $path = filter_var($path, FILTER_SANITIZE_URL);
 
             $path = explode('/', $path);
 
-            $this->controller  = $this->verificaArray( $path, 0 );
-            $this->action      = $this->verificaArray( $path, 1 );
+            $this->controller  = $this->verificaArray($path, 0);
+            $this->action      = $this->verificaArray($path, 1);
 
-            if ( $this->verificaArray( $path, 2 ) ) {
-                unset( $path[0] );
-                unset( $path[1] );
-                $this->params = array_values( $path );
+            if ($this->verificaArray($path, 2)) {
+                unset($path[0]);
+                unset($path[1]);
+                $this->params = array_values($path);
             }
         }
     }
 
-    private function verificaArray ( $array, $key ) {
-        if ( isset( $array[ $key ] ) && !empty( $array[ $key ] ) ) {
-            return $array[ $key ];
+    private function verificaArray($array, $key)
+    {
+        if (isset($array[$key]) && !empty($array[$key])) {
+            return $array[$key];
         }
         return null;
     }

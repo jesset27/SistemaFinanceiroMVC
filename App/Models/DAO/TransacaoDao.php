@@ -3,7 +3,6 @@
 namespace App\Models\DAO;
 
 use App\Models\Entidades\Transacao;
-use Exception;
 
 class TransacaoDAO extends BaseDAO
 {
@@ -17,13 +16,6 @@ class TransacaoDAO extends BaseDAO
     public function listarTransacao($tipo_transacao, $uso_id, $data_ano, $data_mes)
     {
         $resultado = $this->select("SELECT * FROM transacao WHERE tipo_id = $tipo_transacao AND uso_id = $uso_id AND YEAR(tran_data) = $data_ano AND MONTH(tran_data) = $data_mes ORDER BY tran_data");
-
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Transacao::class);
-    }
-
-    public function listar()
-    {
-        $resultado = $this->select("SELECT * FROM trasacao");
 
         return $resultado->fetchAll(\PDO::FETCH_CLASS, Transacao::class);
     }

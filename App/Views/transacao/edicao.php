@@ -25,7 +25,7 @@
             <?php } ?>
         </div>
         <div class="col-md-6">
-            <h2 class="signin-text mb-3" > Alterar <?php echo $viewVar['nomeTransacao'] ?></h2>
+            <h2 class="signin-text mb-3"> Alterar <?php echo $viewVar['nomeTransacao'] ?></h2>
             <p>Por favor, preencha os campos para serem alterados</p>
             <br />
             <div class="table-responsive">

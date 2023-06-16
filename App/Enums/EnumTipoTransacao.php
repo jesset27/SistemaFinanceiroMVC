@@ -6,4 +6,3 @@ enum EnumTipoTransacao : int {
     case DESPESA = 1;
     case RECEITA = 2;
 }
-?>

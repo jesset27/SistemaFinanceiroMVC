@@ -1,7 +1,10 @@
-<?php 
+<?php
+
 namespace App\Models\Entidades;
-class Transacao {
-    
+
+class Transacao
+{
+
     private int $tran_id;
     private int $tipo_id;
     private int $uso_id;
@@ -10,9 +13,9 @@ class Transacao {
     private string $tran_descricao;
 
     public function __get($nome_atributo)
-	{
-		return $this->$nome_atributo;
-	}
+    {
+        return $this->$nome_atributo;
+    }
 
     public function __set($nome_atributo, $value)
     {

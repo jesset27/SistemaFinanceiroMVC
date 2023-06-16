@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Models\Entidades;
-class Usuario {
+
+class Usuario
+{
 
     private int $uso_id;
     private string $uso_nome;
@@ -9,9 +12,9 @@ class Usuario {
     private int $tus_id;
 
     public function __get($nome_atributo)
-	{
-		return $this->$nome_atributo;
-	}
+    {
+        return $this->$nome_atributo;
+    }
 
     public function __set($nome_atributo, $value)
     {

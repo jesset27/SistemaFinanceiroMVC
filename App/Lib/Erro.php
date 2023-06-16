@@ -21,12 +21,12 @@ class Erro
 
         require_once PATH . '/App/Views/layouts/header.php';
 
-        if(file_exists(PATH . "/App/Views/error/".$this->code.".php")){
-            require_once PATH . "/App/Views/error/".$this->code.".php";
-        }else{
+        if (file_exists(PATH . "/App/Views/error/" . $this->code . ".php")) {
+            require_once PATH . "/App/Views/error/" . $this->code . ".php";
+        } else {
             require_once PATH . "/App/Views/error/500.php";
         }
-        
+
         require_once PATH . '/App/Views/layouts/footer.php';
         exit;
     }

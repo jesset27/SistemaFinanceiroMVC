@@ -47,7 +47,7 @@
         ?>
         <li>
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="las la-cog"></i>Configurações
+                <i class="las la-cog"></i>Configurações
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
 
@@ -55,7 +55,7 @@
                     <a href="http://<?php echo APP_HOST; ?>/endereco/cadastro">Cadastrar Endereço</a>
                 </li>
                 <li>
-                    <a href="http://<?php echo APP_HOST; ?>/endereco/edicao/<?=$Sessao::retornaUsuarioId() ?>">Editar Endereço</a>
+                    <a href="http://<?php echo APP_HOST; ?>/endereco/edicao/<?= $Sessao::retornaUsuarioId() ?>">Editar Endereço</a>
                 </li>
 
             </ul>
@@ -63,7 +63,7 @@
         <li>
             <a href="http://<?php echo APP_HOST; ?>/login/reset"><i class="las la-key"></i>Alterar Senha</a>
         <li>
-            <a href="http://<?php echo APP_HOST; ?>/home/index"><i class="las la-power-off"></i>Logout</a>
+            <a href="http://<?php echo APP_HOST; ?>/login/logout"><i class="las la-power-off"></i>Logout</a>
         </li>
     </div>
 </section>

@@ -17,10 +17,10 @@
                 } ?>
             </div>
         <?php } ?>
-        <h2 class="signin-text mb-3" >Mensagens</h2>
+        <h2 class="signin-text mb-3">Mensagens</h2>
         <p>Mensagens enviadas pelos usuários</p>
         <hr>
-       </br>
+        </br>
         </br>
         <table class="table table-striped table-bordered table-hover">
             <thead>
