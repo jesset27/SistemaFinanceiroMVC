@@ -53,7 +53,6 @@ class EnderecoDAO extends BaseDAO
     public function atualizar(Endereco $endereco)
     {
         try {
-            $end_id = $endereco->__get("end_id");
             $uso_id = $endereco->__get("uso_id");
             $end_num = $endereco->__get("end_num");
             $end_bairro = $endereco->__get("end_bairro");
@@ -72,7 +71,7 @@ class EnderecoDAO extends BaseDAO
                 end_cidade = :end_cidade,
                 end_uf = :end_uf",
                 [
-                    ':end_id'           => $end_id,
+                    ':uso_id'           => $uso_id,
                     ':end_num'          => $end_num,
                     ':end_bairro'       => $end_bairro,
                     ':end_logradouro'   => $end_logradouro,
@@ -80,7 +79,7 @@ class EnderecoDAO extends BaseDAO
                     ':end_cidade'       => $end_cidade,
                     ':end_uf'           => $end_uf
                 ],
-                "end_id = :end_id"
+                "uso_id = :uso_id"
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);

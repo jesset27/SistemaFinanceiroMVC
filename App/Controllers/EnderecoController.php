@@ -10,19 +10,6 @@ use App\Models\Validacao\EnderecoValidador;
 
 class EnderecoController extends Controller
 {
-    public function index()
-    {
-        $this->auth();
-
-        $enderecoDAO = new EnderecoDAO();
-
-        self::setViewParam('listaEnderecos', $enderecoDAO->listar());
-
-        $this->render('/endereco/index');
-
-        Sessao::limpaMensagem();
-    }
-
     public function cadastro()
     {
         $this->auth();
@@ -144,5 +131,9 @@ class EnderecoController extends Controller
         }
 
         Sessao::limpaFormulario();
+        Sessao::limpaMensagem();
+        Sessao::gravaMensagem("Endereço cadastrado com sucesso!");
+
+        $this->redirect('/login/dashboard');
     }
 }
