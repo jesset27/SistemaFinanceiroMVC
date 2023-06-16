@@ -1,13 +1,15 @@
 <?php
 
+namespace App\Models\DAO;
+
 use App\Models\DAO\BaseDAO;
-use APP\Models\Entidades\Endereco;
+use App\Models\Entidades\Endereco;
 
 class EnderecoDAO extends BaseDAO
 {
     public function getById($id)
     {
-        $resultado = $this->select("SELECT * FROM endereco WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM endereco WHERE uso_id = $id");
 
         return $resultado->fetchObject(Endereco::class);
     }
@@ -22,13 +24,13 @@ class EnderecoDAO extends BaseDAO
     public function salvar(Endereco $endereco)
     {
         try {
-            $uso_id = $endereco->getUsoId();
-            $end_num = $endereco->getEndNum();
-            $end_bairro = $endereco->getEndBairro();
-            $end_logradouro = $endereco->getEndLogradouro();
-            $end_cep = $endereco->getEndCep();
-            $end_cidade = $endereco->getEndCidade();
-            $end_uf = $endereco->getEndUf();
+            $uso_id = $endereco->__get("uso_id");
+            $end_num = $endereco->__get("end_num");
+            $end_bairro = $endereco->__get("end_bairro");
+            $end_logradouro = $endereco->__get("end_logradouro");
+            $end_cep = $endereco->__get("end_cep");
+            $end_cidade = $endereco->__get("end_cidade");
+            $end_uf = $endereco->__get("end_uf");
 
             return $this->insert(
                 'endereco',
@@ -51,33 +53,34 @@ class EnderecoDAO extends BaseDAO
     public function atualizar(Endereco $endereco)
     {
         try {
-
-            $uso_id = $endereco->getUsoId();
-            $end_num = $endereco->getEndNum();
-            $end_bairro = $endereco->getEndBairro();
-            $end_lougradouro = $endereco->getEndLogradouro();
-            $end_cep = $endereco->getEndCep();
-            $end_cidade = $endereco->getEndCidade();
-            $end_uf = $endereco->getEndUf();
+            $end_id = $endereco->__get("end_id");
+            $uso_id = $endereco->__get("uso_id");
+            $end_num = $endereco->__get("end_num");
+            $end_bairro = $endereco->__get("end_bairro");
+            $end_logradouro = $endereco->__get("end_logradouro");
+            $end_cep = $endereco->__get("end_cep");
+            $end_cidade = $endereco->__get("end_cidade");
+            $end_uf = $endereco->__get("end_uf");
 
             return $this->update(
-                'usuario',
-                "uso_id = :uso_id, 
-                end_num = :end_num, 
+                'endereco',
+                " 
+                end_num = :end_num,
+                end_bairro = :end_bairro, 
                 end_logradouro = :end_logradouro,
-                end_cep = :end_cep
-                end_cidade = :end_cidade
+                end_cep = :end_cep,
+                end_cidade = :end_cidade,
                 end_uf = :end_uf",
                 [
-                    ':uso_id'           => $uso_id,
+                    ':end_id'           => $end_id,
                     ':end_num'          => $end_num,
                     ':end_bairro'       => $end_bairro,
-                    ':end_logradouro'   => $end_lougradouro,
+                    ':end_logradouro'   => $end_logradouro,
                     ':end_cep'          => $end_cep,
                     ':end_cidade'       => $end_cidade,
                     ':end_uf'           => $end_uf
                 ],
-                "id = :id"
+                "end_id = :end_id"
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
@@ -88,7 +91,7 @@ class EnderecoDAO extends BaseDAO
     {
         try {
 
-            return $this->delete('usuario', "id = $id");
+            return $this->delete('endereco', "uso_id = $id");
         } catch (\Exception $e) {
             throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
         }

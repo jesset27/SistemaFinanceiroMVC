@@ -41,7 +41,7 @@ class LoginController extends Controller
         }
        
         $usuario = $usuarioDAO->getById($uso_id);
-        Sessao::gravarTipoUsuario($usuario->__get('tusid'));
+        Sessao::gravarTipoUsuario($usuario->__get('tus_id'));
         Sessao::gravaLogin($uso_id, $uso_nome);
 
         Sessao::limpaFormulario();

@@ -34,21 +34,34 @@
         if ($Sessao::retornaTipoUsuario() == $EnumTipoUsuario::ADMIN->value) {
         ?>
             <li>
-                <a href="./administrador.php"><i class="las la-comment-alt"></i>Mensagens</a>
+                <a href="http://<?php echo APP_HOST; ?>/contato/index"><i class="las la-comment-alt"></i>Mensagens</a>
             </li>
         <?php
         } else {
         ?>
             <li>
-                <a href="http://<?php echo APP_HOST; ?>/contato/index.php"><i class="las la-comment-alt"></i>Contato</a>
+                <a href="http://<?php echo APP_HOST; ?>/contato/cadastro"><i class="las la-comment-alt"></i>Contato</a>
             </li>
         <?php
         }
-        ?>                                                                                                                                                                                     
-
+        ?>
         <li>
-            <a href="http://<?php echo APP_HOST; ?>/alterar_dados_cadastrais/index.php"><i class="las la-cog"></i>Configurações</a>
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="las la-cog"></i>Configurações
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
+
+                <li>
+                    <a href="http://<?php echo APP_HOST; ?>/endereco/cadastro">Cadastrar Endereço</a>
+                </li>
+                <li>
+                    <a href="http://<?php echo APP_HOST; ?>/endereco/edicao/<?=$Sessao::retornaUsuarioId() ?>">Editar Endereço</a>
+                </li>
+
+            </ul>
         </li>
+        <li>
+            <a href="http://<?php echo APP_HOST; ?>/login/reset"><i class="las la-key"></i>Alterar Senha</a>
         <li>
             <a href="http://<?php echo APP_HOST; ?>/home/index"><i class="las la-power-off"></i>Logout</a>
         </li>

@@ -82,9 +82,8 @@ class UsuarioController extends Controller
         $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
 
         try {
-
             $usuarioDAO->salvar($usuario);
-
+            
         } catch (\Exception $e) {
             Sessao::gravaMensagem($e->getMessage());
             $this->redirect('/usuario');
@@ -205,7 +204,6 @@ class UsuarioController extends Controller
 
     public function registrar()
     {
-        print_r($_POST);
         $usuario = new Usuario();
         $usuario->__set("uso_nome", $_POST['nome']);
         $usuario->__set("uso_email", $_POST['email']);
@@ -220,7 +218,7 @@ class UsuarioController extends Controller
 
         if($resultadoValidacao->getErros()){
             Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/login/cadastro'); 
+            $this->redirect('/login/register'); 
         }
 
         $erros = [];
@@ -244,7 +242,7 @@ class UsuarioController extends Controller
 
         if ($erros) {
             Sessao::gravaErro($erros);
-            $this->redirect('/login/cadastro');
+            $this->redirect('/login/register');
         }
 
         $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
@@ -273,6 +271,7 @@ class UsuarioController extends Controller
 
         $usuario = new Usuario();
         $usuario->__set("uso_id", $_POST['id']);
+        $usuario->__set("uso_email", $_POST['email']);
         $password = $_POST['senha'];
         $senha_confirme = $_POST['senha_confirme'];
 

@@ -2,37 +2,36 @@
 namespace App\Models\DAO;
 use App\Models\Entidades\Contato;
 use Exception;
-class ContatoDao extends BaseDAO{
-    public function getById ($id)
+class ContatoDao extends BaseDAO {
+    public function getById($id)
     {
-        $resultado = $this->select("SELECT * FROM contatos WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM contatos WHERE uso_id = $id");
 
         return $resultado->fetchObject(Contato::class);
     }
 
-    public function listar ()
+    public function listar()
     {
-        $resultado = $this->select("SELECT * FROM contatos");
+
+        $resultado = $this->select("SELECT con_id, con.uso_id, con_msg, con_titulo, con_lida, uso_nome FROM contatos as con INNER JOIN usuario as uso on uso.uso_id = con.uso_id");
 
         return $resultado->fetchAll(\PDO::FETCH_CLASS, Contato::class);
     }
 
-    public function salvar (Contato $contato)
+    public function salvar(Contato $contato)
     {
         try {
 
-            $uso_id = $contato->getUsoId();
-            $con_msg = $contato->getConMsg();
-            $con_titulo = $contato->getConTitulo();
-            $con_lida = $contato->getConLida();
+            $uso_id = $contato->__get("uso_id");
+            $con_msg = $contato->__get("con_msg");
+            $con_titulo = $contato->__get("con_titulo");
 
             return $this->insert('contatos',
-             ":uso_id, :con_msg, :con_titulo, :con_lida",
+             ":uso_id, :con_msg, :con_titulo",
              [
                 ':uso_id'       => $uso_id,
                 ':con_msg'      => $con_msg,
                 ':con_titulo'   => $con_titulo,
-                ':con_lida'     => $con_lida
             ]);
             
         }catch (\Exception $e) {
@@ -40,35 +39,52 @@ class ContatoDao extends BaseDAO{
         }
     }
 
-    public function atualizar (Contato $contato)
+    public function atualizar(Contato $contato)
     {
         try {
-
-            $uso_id = $contato->getUsoId();
-            $con_msg = $contato->getConMsg();
-            $con_titulo = $contato->getConTitulo();
-            $con_lida = $contato->getConLida();
+            $con_id = $contato->__get("con_id");
+            $con_msg = $contato->__get("con_msg");
+            $con_titulo = $contato->__get("con_titulo");
+            $con_lida = $contato->__get("con_lida");
 
             return $this->update('contatos', 
-                "uso_id = :uso_id, con_mgs = :con_mgs, con_titulo = :con_titulo, con_lida = :con_lida ",
+                "con_msg = :con_msg, con_titulo = :con_titulo, con_lida = :con_lida",
                 [
-                    ':uso_id'       => $uso_id,
+                    ':con_id'       => $con_id,
                     ':con_mgs'      => $con_msg,
                     ':con_titulo'   => $con_titulo,
-                    ':con_lida'     => $con_lida
+                    ':con_lida'     => $con_lida,
                     ], 
-                    "id = :id");
+                    "con_id = :con_id");
             
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
         }
     }
 
-    public function excluir (int $id)
+    public function lida(Contato $contato)
+    {
+        try {
+            $con_id = $contato->__get("con_id");
+            $con_lida = $contato->__get("con_lida");
+
+            return $this->update('contatos', 
+                "con_lida = :con_lida",
+                [
+                    ':con_id'       => $con_id,
+                    ':con_lida'     => $con_lida,
+                    ], 
+                    "con_id = :con_id");
+            
+        } catch (\Exception $e) {
+            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+        }
+    }
+    public function excluir(int $id)
     {
         try {
 
-            return $this->delete('contatos', "id = $id");
+            return $this->delete('contatos', "con_id = $id");
 
         }catch (\Exception $e) {
             throw new \Exception("Erro ao excluir o contato. " . $e->getMessage(), 500);

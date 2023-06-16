@@ -32,15 +32,15 @@ abstract class Controller
 
         require_once PATH . '/App/Views/layouts/header.php';
         
-        if(!str_contains($view, 'login/index') && !str_contains($view, 'login/cadastro') && !str_contains($view, 'login/reset') && !str_contains($view, 'home'))
+        if(!str_contains($view, 'login/index') && !str_contains($view, 'login/cadastro')  && !str_contains($view, 'home'))
             require_once PATH . '/App/Views/layouts/menu_lateral.php';
         require_once PATH . '/App/Views/' . $view . '.php';
         require_once PATH . '/App/Views/layouts/footer.php';
     }
 
-    public function redirect($view)
+    public function redirect($controllerAction)
     {
-        header('Location: http://' . APP_HOST . $view);
+        header('Location: http://' . APP_HOST . $controllerAction);
         exit;
     }
 

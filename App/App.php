@@ -21,7 +21,7 @@ class App
          */
         define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/SistemaFinanceiroMVC");
         define('PATH'           , realpath('./'));
-        define('TITLE'          , "Sistema Financeiro");
+        define('TITLE'          , "NuAzul");
         define('DB_HOST'        , "localhost");
         define('DB_USER'        , "root");
         define('DB_PASSWORD'    , "");

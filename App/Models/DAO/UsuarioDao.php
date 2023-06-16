@@ -79,14 +79,16 @@ class UsuarioDAO extends BaseDAO
 
             $uso_id      = $usuario->__get("uso_id");
             $uso_senha   = $usuario->__get("uso_senha");
+            $uso_email   = $usuario->__get("uso_email");
 
             return $this->update(
                 'usuario',
-                "uso_senha = :uso_senha",
+                "uso_senha = :uso_senha, uso_email = :uso_email",
 
                 [
                     ':uso_id'       => $uso_id,
-                    ':uso_senha' => $uso_senha
+                    ':uso_senha' => $uso_senha,
+                    ':uso_email' => $uso_email
                 ],
                 "uso_id = :uso_id"
             );

@@ -13,11 +13,18 @@
                 Dashboard
             </h3>
             <?php if ($Sessao::retornaMensagem()) { ?>
-                <div class="col-12">
-                    <div class="alert alert-warning" role="alert">
-                        <?= $Sessao::retornaMensagem() ?>
-                    </div>
-                    <br />
+                <div class="alert alert-warning" role="alert">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <?= $Sessao::retornaMensagem() ?>
+                    <br>
+                </div>
+            <?php } ?>
+            <?php if ($Sessao::retornaErro()) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <?php foreach ($Sessao::retornaErro() as $key => $mensagem) {
+                        echo $mensagem . "<br />";
+                    } ?>
                 </div>
             <?php } ?>
             <form class="data" method="post">

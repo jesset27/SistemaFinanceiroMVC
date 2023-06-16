@@ -57,4 +57,8 @@ class Sessao
         return (isset($_SESSION['tipo_usuario'])) ? $_SESSION['tipo_usuario'] : "";
     }
 
+    public static function retornaUsuarioId(){
+        return (isset($_SESSION['uso_id'])) ? $_SESSION['uso_id'] : "";
+    }
+
 }
